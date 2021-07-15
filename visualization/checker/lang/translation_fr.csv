@@ -1,0 +1,119 @@
+en,fr
+Change language,Choisir la langue
+What does the research literature say about it ?,Découvrez comment la littérature scientifique peut répondre à vos questions sur la santé.
+Enter an agent,Entrer un produit (en anglais)
+Select an effect,Selectionner un lien (en anglais)
+Enter a disease,Entrer un effet (en anglais)
+Check,Vérifier
+What are the goals of Science Checker?,Quels sont les objectifs de Science Checker ?
+Explore the scientific literature,Explorer la littérature scientifique
+Useful for science journalists and the curious,Utile pour les journalistes scientifiques et les curieux
+Understand the established scientific consensus,Comprendre les consensus scientifiques établis
+"It is therefore necessary to analyze several studies, not just one","Il est donc nécessaire d’analyser plusieurs études, et non juste une"
+Demonstrate the usefulness of Open Access,Démontrer l’utilité de l’Open Access
+"Like Open Source, we see Open Access as a high-value issue","A la manière de l’Open Source, nous voyons l’Open Access comme un enjeu de grande valeur"
+What is Science Checker?,Qu’est ce que le Science Checker ?
+Your question,Votre question
+In the field of health about a,Dans le domaine de la santé au sujet d'un
+link,lien
+between an,entre un
+agent,produit
+and a,et une
+disease,maladie
+The AI will,L'IA va
+study the database,étudier la base de données
+to discover the,afin de découvrir le
+scientific consensus,consensus scientifique
+on the health topic concerned by your query,sur le sujet de santé concerné par votre requête
+And will then,Et va ensuite en
+deduce an answer,déduire une réponse
+by proposing the,en vous proposant les
+most relevant articles,articles les plus pertinents
+that can answer it,qui permettent d'y répondre
+Data base,Base de données
+3 million articles in Open Access from,3 millions d'articles en Open Access issus de
+(among 36 million) used as a,(parmi 36 millions) utilisés comme
+source of information,source d'information
+How to participate in the development of the project?,Comment participer au développement du projet ?
+As a Science Checker user:,En tant qu’utilisateur de Science Checker:
+It is possible for you to give us feedback using the,Il vous est possible de nous faire part de vos commentaires en utilisant le boutton
+button or the,ou l'indicateur de rapport de cotes
+odds ratio flag,""
+if an answer seems incorrect or for any other potential error.,si une réponse vous semble incorrecte ou pour toute autre erreur potentielle.
+As a professional:,En tant que professionnel:
+"We are looking for funding and are open to technological partnerships to develop the tool. So if you are interested and want to support us, please contact us at","Nous sommes en recherches de financements et ouverts aux partenariats technologiques pour développer l’outil. Alors si vous êtes intéressé et que vous souhaitez nous apporter votre soutien, n’hésitez pas à prendre contact avec nous à"
+or via the contact form available,ou via le formulaire de contact disponible
+here,ici
+"We would especially like to thank the Vietsch Foundation for funding the project, as well as for its follow-up and the enriching exchanges we had during its development.","Nous souhaitons remercier tout particulièrement la Vietsch Foundation pour avoir financé le projet, ainsi que pour son suivi et les échanges enrichissants que nous avons pu avoir durant son développement."
+"Science Checker does not provide medical or health advice and is not intended for self-medication. Search results may contain outdated or inaccurate information.","Le Science Checker ne donne pas de conseils médicaux ou sanitaires et n’a pas pour objet l’auto-médication. Les résultats de recherche sont susceptibles de contenir des informations obsolètes ou inexactes."
+Only a healthcare professional can provide medical advice.,Seul un professionnel de santé est apte à vous fournir un avis médical.
+Answers,Résultats
+answers,résultats
+Open Acess articles related to,Articles en accès libre relatifs aux termes
+and,et
+Computing answers,Chargement des résultats
+Creating task,Initialisation
+Task completed,Opération effectuée
+no,non
+No,Non
+yes,oui
+Yes,Oui
+neutral,neutre
+Neutral,Neutre
+Affirmative,Affirmative
+Negative,Négative
+Balanced,Discuté
+With,Avec
+to,à
+confidence.,de confiance.
+Final Decision,Décision Finale
+found in our Open access database,trouvés à partir de notre base en Libre accès
+including,dont
+numerical answers,réponses quantitatives
+with no numerical answer,sans réponse quantitative
+Answers are computed from,Ces résultats ont été uniquement calculés sur
+the first,les
+relevant articles only,permiers articles pertinents
+on total of,sur un total de
+Add,Ajouter
+All,Tout
+Click 'Add' to append the next,Cliquez sur 'Ajouter' pour enrichir avec
+'All' to compute the ensemble.,sur 'Tout' pour calculer l'ensemble.
+Thank you for helping us to improve the Science checker project Quantities indicator. You can correct the following values for this data.,Merci de nous aider à améliorer l'indicateur Quantities du projet Science Checker. Vous pouvez corriger les valeurs suivantes pour ces données.
+Thank you for helping us to improve the Science checker project Answers indicator. You can correct the following values for this data.,Merci de nous aider à améliorer les résultats du projet Science Checker. Vous pouvez corriger les valeurs suivantes pour ces données.
+Text,Texte
+(separated by semicolon ; ),(séparés par un point-virgule ; )
+Additional information,Informations complémentaires
+Report an issue,Signaler un problème
+Cancel,Annuler
+Send Report,Envoyer le rapport
+Your contribution has been acknowledged.,Votre contribution a été prise en compte
+Created by,Créé par
+Report,Signaler
+Relevant confidence intervals,Intervalles de confiance pertinents
+Interest over time,Évolution de l'intérêt
+Numerical conclusions,Conclusions quantitatives
+Full Text,Texte intégral
+Answer,Réponse
+Response,Résultat
+Confidence,Confiance
+This issue is being discussed,Cette question est discutée
+Advanced,Avancés
+Filters,Filtres
+Sorting,Tri
+Show only articles with,Afficher uniquement les articles avec
+Year Range,Période (années)
+Sort by,Trier par
+Apply,Appliquer
+Reset,Réinitialiser
+Ordering applied.,Filtres appliqués.
+Ordering reseted.,Filtres réinitialisés.
+No results match the applied filters.,Aucun résultat ne correspond aux filtres appliqués.
+Computing all the answers may take some time. We will notify you by email when it is completed.,Calculer l'ensemble des réponses peut prendre un certain temps de calcul. Nous vous préviendrons par email quand ce sera effectué.
+We'll never share your email with anyone else.,Nous ne partagerons jamais votre adresse électronique.
+Compute all answers,Calculer l'ensemble des réponses
+Task has been created.,La tâche a été créée.
+No documents matching the specified search terms,Aucun document ne correspond aux termes de recherche spécifiés
+Check the spelling of the search terms,Vérifiez l’orthographe des termes de recherche
+Try other keywords,Essayez d'autres mots clés
+Number of open access article over time,Nombre d'articles en libre accès dans le temps

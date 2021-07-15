@@ -1,0 +1,74 @@
+FROM rocker/r-ver:3.6.3
+
+LABEL maintainer="loic.rakotoson@opscidia.com"
+
+
+RUN apt-get update && apt-get install -y \
+    gdebi-core \
+    pandoc \
+    pandoc-citeproc \
+    libcairo2-dev \
+    libxt-dev \
+    xtail \
+    wget \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    git \
+    nginx-common \
+    nginx-full \
+    ca-certificates
+
+
+# Download and install shiny server
+RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/VERSION -O "version.txt" && \
+    VERSION=$(cat version.txt)  && \
+    wget --no-verbose "https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-$VERSION-amd64.deb" -O ss-latest.deb && \
+    gdebi -n ss-latest.deb && \
+    rm -f version.txt ss-latest.deb && \
+    . /etc/environment && \
+    R -e "install.packages(c('bslib', 'formattable', 'DT', 'shiny', 'shiny.i18n', 'shinyWidgets', 'future', 'httr', 'jsonlite', 'promises', 'shinyjs', 'shinycssloaders', 'tidyverse', 'devtools', 'plotly'), repos='http://cran.us.r-project.org')" && \
+    chown shiny:shiny /var/lib/shiny-server
+
+RUN R -e 'devtools::install_github("gadenbuie/shinyThings")'
+RUN mkdir -p /srv/shiny-server/data
+RUN mkdir -p /srv/shiny-server/conf
+RUN mkdir -p /srv/shiny-server/visualization/visualization/
+COPY ./shiny-server.conf /etc/shiny-server/shiny-server.conf
+
+RUN mkdir -p /var/run/viz
+# RUN ls -a
+# RUN ls ./var/run
+# RUN cp -r ./var/run/botini/ /var/run/
+# RUN cp -r ./var/run/botini/ /var/run/
+# RUN cp -r ./var/run/nginx/checker /etc/nginx/sites-available/
+# RUN cp -r ./var/run/nginx/nginx.conf /etc/nginx/
+# RUN ln -s /etc/nginx/sites-available/checker /etc/nginx/sites-enabled/
+COPY ./var/run/botini/ /var/run/botini/
+COPY ./var/run/nginx/checker /etc/nginx/sites-available/
+COPY ./var/run/nginx/nginx.conf /etc/nginx/
+RUN ln -s /etc/nginx/sites-available/checker /etc/nginx/sites-enabled/
+
+WORKDIR /srv/shiny-server/visualization/visualization/
+
+RUN { echo '#!/bin/bash'; \
+      echo 'mkdir -p /var/log/shiny-server'; \
+      echo 'chown shiny.shiny /var/log/shiny-server'; \
+      echo 'env > /home/shiny/.Renviron'; \
+      echo 'cat /srv/shiny-server/visualization/visualization/.Renviron >> /home/shiny/.Renviron'; \
+      echo 'chown shiny:shiny /home/shiny/.Renviron'; \
+      echo 'if [ "$APPLICATION_LOGS_TO_STDOUT" != "false" ];'; \
+      echo 'then'; \
+      echo 'exec xtail /var/log/shiny-server/ &'; \
+      echo 'fi'; \
+      echo 'service nginx restart'; \
+      echo 'exec shiny-server 2>&1'; \
+    } > /usr/bin/shiny-server.sh && \
+    chmod +x /usr/bin/shiny-server.sh && \
+    chown shiny:shiny /usr/bin/shiny-server.sh
+        
+
+
+EXPOSE 3838
+
+CMD ["/usr/bin/shiny-server.sh"]

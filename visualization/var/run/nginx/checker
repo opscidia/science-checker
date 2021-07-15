@@ -1,0 +1,30 @@
+upstream viz {
+    server localhost:8002 fail_timeout=0;
+}
+
+server {
+      listen 8002;
+      listen [::]:8002;
+      server_name localhost;
+      return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 default ssl;
+    server_name localhost;
+
+    ssl on;
+
+    ssl_certificate /var/run/botini/nginx-certificate.crt;
+    ssl_certificate_key /var/run/botini/nginx.key;
+
+
+    access_log /var/log/nginx/checker.access.log;
+    error_log /var/log/nginx/checker.error.log;
+
+
+    location / {
+        proxy_pass http://localhost:3838;
+        proxy_read_timeout 300;
+    }
+}

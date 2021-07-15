@@ -1,0 +1,79 @@
+version: '3.3'
+services:
+    api:
+        image: checker/api:latest
+        build:
+            context: ./api
+            dockerfile: ../dockerfiles/Dockerfile.api
+        ports:
+            - "${SERVICE_PORT_API}:5000"
+        volumes:
+            - $CONF_DIR:/checker/conf
+            - $DATA_DIR:/checker/data
+            - ./api:/checker/api
+        environment:
+            PYTHONUNBUFFERED: 1
+            API_PORT: $API_PORT
+            API_HOST: api
+            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+            AWS_DEFAULT_REGION: eu-west-3
+            AWS_DEFAULT_OUTPUT: json
+            API_MODE: dev
+            API_WORKERS: $API_WORKERS
+            MAIL_USER: $MAIL_USER
+            MAIL_KEY: $MAIL_KEY
+            MAIL_SERVER: $MAIL_SERVER
+            MAIL_PORT: $MAIL_PORT
+        tty: true 
+        networks:
+            - demo
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.70'
+                    memory: 10000M
+        
+    viz:
+        image: checker/visualization:latest
+        build:
+            context: ./visualization
+            dockerfile: ../dockerfiles/Dockerfile.visualization
+        ports:
+            - "${SERVICE_PORT_VIZ}:8002"
+            - 443:443
+        environment:
+            NAME: viz
+            API_HOST: api
+            API_PORT: $API_PORT
+        tty: true
+        volumes:
+            - $VISUALIZATION_LOGS:/var/log/shiny-server
+            - $CONF_DIR:/srv/shiny-server/visualization/conf
+            - $DATA_DIR:/srv/shiny-server/visualization/data
+            - ./visualization:/srv/shiny-server/visualization/visualization/
+        networks:
+            - demo
+        depends_on:
+            - api
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.28'
+                    memory: 1000M
+                reservations:
+                    cpus: '0.10'
+                    memory: 700M
+            
+networks:
+  demo:
+    driver: bridge
+volumes:
+    CONF_DIR:
+        driver: local
+    DATA_DIR:
+        driver: local
+    VISUALIZATION_DIR:
+        driver: local
+    VISUALIZATION_LOGS:
+        driver: local
