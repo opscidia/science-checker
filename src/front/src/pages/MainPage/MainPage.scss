@@ -1,0 +1,40 @@
+.mainpage {
+    padding: 6rem 0;
+    &__title {
+        color: #1b1b42;
+        font-family: "Playfair Display";
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    &__footer {
+        color: #1b1b42;
+        font-family: Krub;
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        display: flex;
+        align-items: center;
+
+        &__logo {
+            width: 120px;
+        }
+    }
+}
+
+div.mainpage::after {
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        linear-gradient(rgba(245, 245, 245, 0.82), rgba(245, 245, 245, 0.82)),
+        url(../../assets/images/main_background.jpeg) no-repeat center center !important;
+    background-size: cover !important;
+    z-index: -1;
+}

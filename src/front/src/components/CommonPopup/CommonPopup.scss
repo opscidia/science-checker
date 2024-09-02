@@ -1,0 +1,82 @@
+.common-popup {
+  position: fixed;
+
+  .modal-content {
+    border: unset;
+  }
+
+  .modal-header {
+    position: relative;
+    display: block;
+    text-align: left;
+    background: #ffffff;
+    border: unset;
+
+    .modal-title {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 21px;
+      letter-spacing: 0.04em;
+      color: #1b1b42;
+      margin-top: 32px;
+    }
+  }
+}
+
+.common-popup-backdrop {
+  position: fixed !important;
+
+  &:not(.show) {
+    display: none;
+  }
+}
+
+.modal-backdrop {
+  background: #1b1b42 !important;
+  opacity: 0.7 !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.popup-footer {
+  background: #f3f6fc;
+  border-radius: 0px 0px 4px 4px;
+  height: 53px;
+  grid-column-gap: 10px;
+  width: 100%;
+
+  &__cancelbtn {
+    font-family: "Krub";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    cursor: pointer;
+    color: #5a73c2;
+  }
+}
+
+.off_canvas_close_btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px !important;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: 4px;
+  background-color: #aec0d3;
+  color: #ffffff;
+  border-radius: 0px 3px;
+  border: none;
+  padding: 0;
+
+  &:hover {
+    background: #5a73c2 !important;
+  }
+}

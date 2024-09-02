@@ -1,0 +1,29 @@
+.readmore {
+  > div {
+    display: inline;
+  }
+
+  mark {
+    padding: 0 !important;
+    background-color: transparent !important;
+    font-weight: bold;
+  }
+}
+
+.text {
+  display: inline;
+  width: 100%;
+  height: fit-content;
+  color: #242654;
+}
+
+.read-or-hide {
+  color: gray;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.highlightClass {
+  background-color: transparent;
+  font-weight: bold;
+}

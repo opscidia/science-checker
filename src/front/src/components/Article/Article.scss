@@ -1,0 +1,166 @@
+.content {
+    position: relative;
+    border-radius: 30px;
+    background: rgba(250, 250, 250, 0.7);
+    padding: 1.5em;
+    margin: 0.75em;
+    text-align: start;
+    width: 80%;
+    max-width: 1150px;
+
+    &.search_animate {
+        @for $i from 1 through 11 {
+            &:nth-child(#{$i}) {
+                opacity: 0;
+                animation: fadeIn 0.5s ease-in-out forwards;
+                animation-delay: calc(0.5s*#{$i - 1});
+            }
+        }
+    }
+
+    &__checkbox {
+        flex-grow: 0 !important;
+        padding-right: 0px !important;
+
+        .form-check-input {
+            border: 1px solid #5a73c2;
+
+            &:checked {
+                background-color: #5a73c2;
+                border-color: #5a73c2;
+            }
+
+            &:hover {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23aec0d3' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+            }
+        }
+
+        .form-check-input:checked {
+            background-color: #5a73c2;
+            border-color: #5a73c2;
+        }
+    }
+
+    &__score__badge {
+        border-radius: 10px;
+        background-color: #f2a851;
+        position: absolute;
+        padding: 0.2em 0.5em;
+        top: 1em;
+        right: 1em;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    &__header {
+        background-color: transparent !important;
+        font-family: "Krub";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        color: #1b1b42;
+        width: calc(100% - 65px);
+
+        mark {
+            padding: 0 !important;
+            background-color: transparent !important;
+            font-weight: bold;
+        }
+
+        svg {
+            margin-bottom: 2px;
+        }
+
+        >span {
+            >div {
+                width: 100%;
+            }
+        }
+    }
+
+    &__title {
+        font-weight: 600;
+        font-size: 12px;
+        color: #7b7b8d;
+
+        .authors_list {
+            color: gray;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+
+    &__doi {
+        font-weight: 500;
+        font-size: 12px;
+        color: #1b1b42;
+        opacity: 0.5;
+    }
+
+    &__description {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 16px;
+        color: #1b1b42;
+    }
+
+    &__footer {
+        font-weight: 500;
+        font-size: 11px;
+        color: rgba(123, 123, 141);
+        cursor: pointer;
+
+        &__cite {
+            cursor: pointer;
+
+            &:hover {
+                color: #5a73c2;
+            }
+
+            >svg {
+                margin-bottom: 2px;
+            }
+
+            .alert__dot__comment {
+                height: 5px;
+                width: 5px;
+                background-color: #f2a851;
+                border-radius: 50%;
+
+                position: absolute;
+                left: 6px;
+                top: 2px;
+            }
+        }
+
+        &__citation {
+            >svg {
+                margin-bottom: 2px;
+            }
+        }
+    }
+}
+
+.bg__dark {
+    background-color: #F7F8F9;
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

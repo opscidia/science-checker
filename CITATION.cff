@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Rakotoson"
+    given-names: "Loïc"
+  - family-names: "Letaillieur"
+    given-names: "Charles"
+  - family-names: "Massip"
+    given-names: "Sylvain"
+  - family-names: "Laleye"
+    given-names: "Fréjus A. A."
+title: "Extractive-Boolean Question Answering for Scientific Fact Checking"
+doi: "10.1145/3512732.3533580"
+year: 2022
+month: 6
+url: "http://dx.doi.org/10.1145/3512732.3533580"
+conference:
+  name: "Proceedings of the 1st International Workshop on Multimedia AI against Disinformation"
+  acronym: "ICMR ’22"
+  series: "ICMR ’22"
+publisher: "ACM"

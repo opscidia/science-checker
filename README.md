@@ -1,45 +1,62 @@
-# Science checker
-Science checker project w/ Vietsch Foundation
+<!-- @copyright  Copyright (c) 2018-2024 Opscidia -->
+# Science Checker
 
-The present project, called Opscidia Science Checker, aims at developing a tool to verify scientific claims by analyzing the pertinent and available scientific literature. The subject of fake news is a very topical one. With social networks, and the advances of artificial intelligence, it is easier and easier to create fake news, and they circulate quicker and quicker. Health is a particularly nasty topic for fake news. Scam medicine, and worrisome information circulate, often based on absolutely no scientific evidence.. The main idea of this project is to build several indicators based on the analysis of very large volumes of scientific articles. These indicators will be easy to understand in order for the non-specialist to have a quick idea of whether an information is backed by the scientific literature, is under debate, or is totally groundless.   The tool developed will be of use for journalists and media groups as well as for the general public. The idea actually emerged after a discussion with a scientific journalist who conducts long investigations on cases of possible fake medicine. The use of tools such as ours would be very useful to help them target the topics that deserve investigation, and would give a starting point for their work. We have further discussed this topic with several other journalists that all showed a very strong interest for the development of such a product. 
+<div align="center">
 
-## Requirements
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=Python&logoColor=f1c40f)](https://www.python.org/downloads/)
+[![Docker](https://img.shields.io/badge/docker-engine-2496ED?style=for-the-badge&logo=docker)](https://www.djangoproject.com/download/)
 
-```
-boto3
-elasticsearch
-elasticsearch-dsl
-fastapi
-grobid-quantities-client
-nltk
-numpy
-pandas
-requests-aws4auth
-sentencepiece
-tensorflow
-transformers
-uvicorn
-```
+</div>
 
-## Run demo
-```python
-python scienceqa/main.py
+Code implementation of [Science Checker Reloaded](https://arxiv.org/abs/2402.13897).
+
+To access the [Extractive-Boolean QA For Scientific Fact Checking](https://doi.org/10.1145/3512732.3533580) code implementation, please refer to the [v1.0 branch](https://github.com/opscidia/science-checker/releases/tag/v1.0).
+
+
+## Installation
+Install Docker and Docker Compose if you haven't already.  
+Then, run the following commands to build the Docker image.
+
+```sh
+docker-compose build
 ```
 
-## Docker Mount
-Add weights to `data/weights/<model-name>`.  
-Model weights should contains, at least:
-
-- `config.json`
-- `tf_model.h5`
-- `vocab.json`
-- `tokenizer_config.json`
-- `merges.txt`
-- `special_tokens_map.json`
-
-Set correct parameters in `env.prod`
-
-Then, deploy with
-```bash
-./mount.sh
+Download the entity-fishing models.
+```sh
+wget -qO- https://science-miner.s3.amazonaws.com/entity-fishing/0.0.6/db-kb.zip | bsdtar -C src/entityfish/models/ -xvf-
+wget -qO- https://science-miner.s3.amazonaws.com/entity-fishing/0.0.6/db-en.zip | bsdtar -C src/entityfish/models/ -xvf-
 ```
+
+Run the following command to start the Docker container.
+```sh
+docker-compose up
+```
+
+## Citations
+If you find this code useful, please consider citing our work.
+```bibtex
+@misc{rakotoson2024science,
+      title={Science Checker Reloaded: A Bidirectional Paradigm for Transparency and Logical Reasoning}, 
+      author={Loïc Rakotoson and Sylvain Massip and Fréjus A. A. Laleye},
+      year={2024},
+      eprint={2402.13897},
+      archivePrefix={arXiv},
+      primaryClass={cs.IR}
+}
+```
+If you use the Extractive-Boolean QA For Scientific Fact Checking code implementation, please consider citing the following work.
+```bibtex
+@inproceedings{Rakotoson_2022,
+    series={ICMR ’22},
+    title={Extractive-Boolean Question Answering for Scientific Fact Checking},
+    url={http://dx.doi.org/10.1145/3512732.3533580},
+    DOI={10.1145/3512732.3533580},
+    booktitle={Proceedings of the 1st International Workshop on Multimedia AI against Disinformation},
+    publisher={ACM},
+    author={Rakotoson, Loïc and Letaillieur, Charles and Massip, Sylvain and Laleye, Fréjus A. A.},
+    year={2022},
+    month=jun,
+    collection={ICMR ’22}
+}
+```
+

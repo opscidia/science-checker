@@ -1,79 +1,92 @@
-version: '3.3'
+version: '3.8'
 services:
-    api:
-        image: checker/api:latest
-        build:
-            context: ./api
-            dockerfile: ../dockerfiles/Dockerfile.api
-        ports:
-            - "${SERVICE_PORT_API}:5000"
-        volumes:
-            - $CONF_DIR:/checker/conf
-            - $DATA_DIR:/checker/data
-            - ./api:/checker/api
-        environment:
-            PYTHONUNBUFFERED: 1
-            API_PORT: $API_PORT
-            API_HOST: api
-            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-            AWS_DEFAULT_REGION: eu-west-3
-            AWS_DEFAULT_OUTPUT: json
-            API_MODE: dev
-            API_WORKERS: $API_WORKERS
-            MAIL_USER: $MAIL_USER
-            MAIL_KEY: $MAIL_KEY
-            MAIL_SERVER: $MAIL_SERVER
-            MAIL_PORT: $MAIL_PORT
-        tty: true 
+    redis:
+        image: redis:alpine
+        container_name: redis
         networks:
-            - demo
-        deploy:
-            resources:
-                limits:
-                    cpus: '0.70'
-                    memory: 10000M
-        
-    viz:
-        image: checker/visualization:latest
-        build:
-            context: ./visualization
-            dockerfile: ../dockerfiles/Dockerfile.visualization
-        ports:
-            - "${SERVICE_PORT_VIZ}:8002"
-            - 443:443
-        environment:
-            NAME: viz
-            API_HOST: api
-            API_PORT: $API_PORT
-        tty: true
-        volumes:
-            - $VISUALIZATION_LOGS:/var/log/shiny-server
-            - $CONF_DIR:/srv/shiny-server/visualization/conf
-            - $DATA_DIR:/srv/shiny-server/visualization/data
-            - ./visualization:/srv/shiny-server/visualization/visualization/
+            - net
+        healthcheck:
+            test: [ "CMD-SHELL", "redis-cli ping | grep -c PONG" ]
+            interval: 10s
+            timeout: 5s
+            retries: 10
+
+    entityfish:
+        build: ./src/entityfish
+        container_name: entityfish
         networks:
-            - demo
+            - entityfish
+        expose:
+            - 8090
+        volumes:
+            - ./src/entityfish/models/:/opt/entity-fishing/data/db/
+        healthcheck:
+            test: [ "CMD-SHELL", "curl -f http://localhost:8091 || exit 1" ]
+            interval: 10s
+            timeout: 5s
+            retries: 10
+
+    back:
+        build: ./src/back
+        container_name: back
+        networks:
+            - net
+            - out
+            - entityfish
+        expose:
+            - 8000
+        volumes:
+            - ./src/back/:/usr/src/back/
         depends_on:
-            - api
-        deploy:
-            resources:
-                limits:
-                    cpus: '0.28'
-                    memory: 1000M
-                reservations:
-                    cpus: '0.10'
-                    memory: 700M
-            
+            - redis
+        command: [ "python", "-m", "api" ]
+        environment:
+            ES_INDEX: $ES_INDEX
+            ES_HOST: $ES_HOST
+            ES_LOGIN: $ES_LOGIN
+            ES_PASSWORD: $ES_PASSWORD
+        healthcheck:
+            test: [ "CMD-SHELL", "curl -f http://localhost:8000 || exit 1" ]
+            interval: 10s
+            timeout: 5s
+            retries: 10
+
+    front:
+        build: ./src/front
+        container_name: front
+        networks:
+            - net
+            - out
+        expose:
+            - 3000
+        volumes:
+            - ./src/front/:/usr/src/front/
+        depends_on:
+            - back
+        command: sh -c "npm install && npm install -g serve && npm run build && serve -s dist -l 3000"
+        healthcheck:
+            test: [ "CMD-SHELL", "ps aux | grep '[s]erve -s dist -l 3000'" ]
+            interval: 10s
+            timeout: 5s
+            retries: 10
+
+    server:
+        build: ./src/server
+        container_name: server
+        networks:
+            - out
+        ports:
+            - "8444:8444"
+        depends_on:
+            back:
+                condition: service_healthy
+            front:
+                condition: service_healthy
+
 networks:
-  demo:
-    driver: bridge
-volumes:
-    CONF_DIR:
-        driver: local
-    DATA_DIR:
-        driver: local
-    VISUALIZATION_DIR:
-        driver: local
-    VISUALIZATION_LOGS:
-        driver: local
+    net:
+        driver: bridge
+    out:
+        driver: bridge
+    entityfish:
+        driver: bridge

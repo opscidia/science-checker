@@ -1,0 +1,34 @@
+# ignore most data files
+*.csv
+*.model
+*.pyc
+*.rdf
+*.ipynb
+*.pth
+*.log
+*.h5
+*.env
+*.crt
+*.key
+
+app_cache/
+data/*
+.ssh/*
+.vscode/*
+src/entityfish/models/*
+!.keep
+
+# ignore generated files
+__pycache__/
+.ipynb_checkpoints/
+utils/__pycache__/
+
+# Pyre type checker
+.pyre/
+.Rproj.user
+.Rhistory
+.RData
+.Renviron
+*.pem
+*.tflite
+*.rdb
